@@ -1,0 +1,61 @@
+{
+  "api": {
+    "backend": {
+      "dependsOn": [],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 7
+            },
+            "authenticationType": "API_KEY"
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
+  "custom": {
+    "customResource9bfc9743": {
+      "providerPlugin": "awscloudformation",
+      "service": "customCDK"
+    }
+  },
+  "function": {
+    "funcA": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput"
+          ],
+          "category": "api",
+          "resourceName": "backend"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_funcA_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "funcA"
+        }
+      ]
+    },
+    "AMPLIFY_function_funcA_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "funcA"
+        }
+      ]
+    }
+  }
+}
