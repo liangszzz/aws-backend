@@ -1,22 +1,19 @@
-/* Amplify Params - DO NOT EDIT
-	ENV
-	REGION
-Amplify Params - DO NOT EDIT */"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.handler = void 0;
-const aws_sdk_1 = require("aws-sdk");
-const sqs = new aws_sdk_1.SQS();
+import { DynamoDBStreamEvent } from 'aws-lambda';
+import { SQS } from 'aws-sdk';
+
+const sqs = new SQS();
+
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
-const handler = (event) => {
+export const handler = (event: DynamoDBStreamEvent) => {
     console.log(`EVENT: ${JSON.stringify(event)}`);
     for (const record of event.Records) {
         console.log(record.eventID);
         console.log(record.eventName);
         console.log('DynamoDB Record: %j', record.dynamodb);
     }
-    const queueUrl = '';
+    const queueUrl: string = ''
     try {
         sqs.sendMessage({
             QueueUrl: queueUrl,
@@ -28,10 +25,9 @@ const handler = (event) => {
                 },
             },
         }).promise();
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
     }
+
     return Promise.resolve('Successfully processed DynamoDB record');
 };
-exports.handler = handler;

@@ -26,22 +26,21 @@
   "function": {
     "funcA": {
       "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "GraphQLAPIIdOutput",
-            "GraphQLAPIEndpointOutput"
-          ],
-          "category": "api",
-          "resourceName": "backend"
-        }
-      ],
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
     "AMPLIFY_function_funcA_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "funcA"
+        }
+      ]
+    },
+    "AMPLIFY_function_funcA_funcName": {
       "usedBy": [
         {
           "category": "function",
